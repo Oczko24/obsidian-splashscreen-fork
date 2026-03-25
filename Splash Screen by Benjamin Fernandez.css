@@ -1,0 +1,128 @@
+/* Splash Screen Snippet for Obsidian */
+/* by Benjamin Fernandez - github.com/benfernandezmedia */
+
+/* Radial background layer - this uses the primary color of the vault. */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background: 
+        radial-gradient(circle at center,
+        rgba(0,0,0,0) 40%,
+        rgba(0,0,0,0.15) 100%),
+        var(--background-primary);
+    z-index: 9998;
+    pointer-events: none;
+    animation: splashFade 3.5s ease forwards;
+}
+
+/* Logo Layer - Dark Scheme */
+body.theme-dark::before {
+    background: 
+        radial-gradient(circle at center,
+        rgba(0,0,0,0) 40%,
+        rgba(0,0,0,0.25) 100%),
+        var(--background-primary);
+}
+
+body.theme-dark::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("");      /* Please provide your own image in Base64 format! */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 300px;         /* Adjust size of logo if small or big */
+
+    opacity: 0;
+    z-index: 9999;
+    pointer-events: none;
+
+    animation: splashLogoFade 2.5s cubic-bezier(.4,0,.2,1) forwards;
+    animation-delay: 1s;            /* Adjust delay if needed, in case the animation starts late after vault initialization */
+}
+
+/* Logo Layer - Light Scheme */
+body.theme-light::before {
+    background: 
+        radial-gradient(circle at center,
+        rgba(0,0,0,0) 40%,
+        rgba(0,0,0,0.08) 100%),
+        var(--background-primary);
+}
+
+body.theme-light::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("");      /* Please provide your own image in Base64 format! */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 300px;         /* Adjust size of logo if small or big */
+
+    opacity: 0;
+    z-index: 9999;
+    pointer-events: none;
+
+    animation: splashLogoFade 2.5s cubic-bezier(.4,0,.2,1) forwards;
+    animation-delay: 1s;            /* Adjust delay if needed. in case the animation starts late after vault initialization */
+}
+
+/* Vault Workspace Reveal - Main user interface of Obsidian reveals after splash ends. */
+.workspace {
+    opacity: 0;
+    animation: vaultReveal 1.2s ease forwards;
+    animation-delay: 4s;
+}
+
+
+/* KEYFRAMES FOR ANIMATION - DO NOT MODIFY UNLESS YOU KNOW WHAT YOUR DOING! */
+@keyframes vaultReveal {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes splashLogoFade {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    30% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+
+    70% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(2);
+    }
+}
+
+@keyframes splashFade {
+    0% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
