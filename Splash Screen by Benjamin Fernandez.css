@@ -1,6 +1,90 @@
 /* Splash Screen Snippet for Obsidian */
 /* by Benjamin Fernandez - github.com/benfernandezmedia */
 
+:root {
+    --splash-logo-dark: url("");
+    --splash-logo-light: url("");
+    --splash-bg-duration: 3.5s;
+    --logo-delay: 1s;
+    --logo-duration: 2.5s;
+    --workspace-delay: 4s;
+    --workspace-duration: 1.2s;
+    --logo-size: 300px;
+}
+
+/* Obsidian Style Settings Integration - this is used to easily adjust the settings of the snippet easily without hardcoding the file. */
+/* @settings
+name: Splash Screen by Benjamin Fernandez Media
+id: benfernandezmedia-splashscreen
+
+settings:
+
+  - id: splash-logo-dark
+    title: Logo Image - Dark Scheme
+    type: variable-text
+    default: url("")
+
+  - id: splash-logo-light
+    title: Logo Image - Light Scheme
+    type: variable-text
+    default: url("")
+
+  - id: splash-bg-duration
+    title: Background Fade Duration
+    type: variable-number-slider
+    default: 3.5
+    min: 1
+    max: 8
+    step: 0.1
+    format: s
+    
+  - id: logo-delay
+    title: Logo Start Transition Delay
+    type: variable-number-slider
+    default: 1
+    min: 0
+    max: 5
+    step: 0.1
+    format: s
+    
+  - id: logo-duration
+    title: Logo Start Animation Duration
+    type: variable-number-slider
+    default: 2.5
+    min: 0.5
+    max: 6
+    step: 0.1
+    format: s
+    
+  - id: workspace-delay
+    title: Workspace Reveal Animation Delay
+    type: variable-number-slider
+    default: 4
+    min: 1
+    max: 10
+    step: 0.1
+    format: s
+    
+  - id: workspace-duration
+    title: Workspace Reveal Animation Speed
+    type: variable-number-slider
+    default: 1.2
+    min: 0.3
+    max: 3
+    step: 0.1
+    format: s
+    
+  - id: logo-size
+    title: Logo Image Size
+    type: variable-number-slider
+    default: 300
+    min: 100
+    mix: 600
+    step: 10
+    format: px
+    
+*/
+
 /* Radial background layer - this uses the primary color of the vault. */
 body::before {
     content: "";
@@ -14,7 +98,7 @@ body::before {
         var(--background-primary);
     z-index: 9998;
     pointer-events: none;
-    animation: splashFade 3.5s ease forwards;
+    animation: splashFade var(--splash-bg-duration) ease forwards;
 }
 
 /* Logo Layer - Dark Scheme */
@@ -30,17 +114,17 @@ body.theme-dark::after {
     content: "";
     position: fixed;
     inset: 0;
-    background-image: url("");      /* Please provide your own image in Base64 format! */
+    background-image: var(--splash-logo-dark);      /* Please provide your own image in Base64 format! */
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 300px;         /* Adjust size of logo if small or big */
+    background-size: var(--logo-size);         /* Adjust size of logo if small or big */
 
     opacity: 0;
     z-index: 9999;
     pointer-events: none;
 
-    animation: splashLogoFade 2.5s cubic-bezier(.4,0,.2,1) forwards;
-    animation-delay: 1s;            /* Adjust delay if needed, in case the animation starts late after vault initialization */
+    animation: splashLogoFade var(--logo-duration) cubic-bezier(.4,0,.2,1) forwards;
+    animation-delay: var(--logo-delay);            /* Adjust delay if needed, in case the animation starts late after vault initialization */
 }
 
 /* Logo Layer - Light Scheme */
@@ -56,7 +140,7 @@ body.theme-light::after {
     content: "";
     position: fixed;
     inset: 0;
-    background-image: url("");      /* Please provide your own image in Base64 format! */
+    background-image: var(--splash-logo-light);      /* Please provide your own image in Base64 format! */
     background-repeat: no-repeat;
     background-position: center;
     background-size: 300px;         /* Adjust size of logo if small or big */
@@ -72,8 +156,8 @@ body.theme-light::after {
 /* Vault Workspace Reveal - Main user interface of Obsidian reveals after splash ends. */
 .workspace {
     opacity: 0;
-    animation: vaultReveal 1.2s ease forwards;
-    animation-delay: 4s;
+    animation: vaultReveal var(--workspace-duration) ease forwards;
+    animation-delay: var(--workspace-delay);
 }
 
 
